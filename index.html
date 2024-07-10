@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房产计算器</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="path/to/your/logo.png" alt="Leading Capital Logo">
+        </div>
+        <h1 style="text-align: center;">房产计算器</h1>
+        
+        <div class="section">
+            <h2>资金准备测算表</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>项目</th>
+                        <th>备注</th>
+                        <th>金额 (AUD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>合约价</td>
+                        <td>请填写金额</td>
+                        <td><input type="number" id="contractPrice" placeholder="请填写金额"></td>
+                    </tr>
+                    <tr>
+                        <td>首付比例</td>
+                        <td><input type="number" id="downPaymentRate" placeholder="请填写数值">%</td>
+                        <td id="downPayment"></td>
+                    </tr>
+                    <tr>
+                        <td>律师费</td>
+                        <td>包含GST</td>
+                        <td><input type="number" id="lawyerFee" placeholder="请填写金额"></td>
+                    </tr>
+                    <tr>
+                      <td>FIRB申请费</td>
+                      <td>
+                          <select id="firbFeeRange" onchange="calculateFIRBFee()">
+                              <option value="none">不适用</option>
+                              <option value="less75k"> less than $75,000</option>
+                              <option value="1millionOrLess">$75,000 - $1,000,000</option>
+                              <option value="2millionOrLess">$1,000,000 - $2,000,000</option>
+                              <option value="3millionOrLess">$2,000,001 - $3,000,000</option>
+                              <option value="4millionOrLess">$3,000,001 - $4,000,000</option>
+                              <option value="5millionOrLess">$4,000,001 - $5,000,000</option>
+                          </select>
+                      </td>
+                      <td id="firbFeeAmount"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>阶段一需支付费用</strong></td>
+                      <td colspan="2" id="stageOneTotal"></td>
+                    </tr>
+                    <tr>
+                        <td>印花税(Stamp Duty)</td>
+                        <td><a href="https://www.visionabacus.net/Tools/B3/SuiteA/A200/Stamp_Duty_Calculator" target="_blank">点击进行计算</a></td>
+                        <td><input type="number" id="stampDuty" placeholder="请填写金额"></td>
+                    </tr>
+                    <tr>
+                        <td>尾款比例(以贷款比例为准)</td>
+                        <td id="remainingRatio"></td>
+                        <td id="remainingAmount"></td>
+                    </tr>
+                    <tr>
+                        <td>杂费预估（landtax，council，water，strate）</td>
+                        <td>
+                            <select id="miscFeesOption" onchange="updateMiscFees()">
+                                <option value="3000">1房</option>
+                                <option value="5000">2房</option>
+                                <option value="7000">3房</option>
+                            </select>
+                        </td>
+                        <td id="miscFeesAmount">5000</td>
+                    </tr>
+                    <tr>
+                        <td>阶段二需支付费用</td>
+                        <td colspan="2" id="stageTwoTotal"></td>
+                    </tr>
+                    <tr>
+                        <td>合计</td>
+                        <td colspan="2" id="totalSum"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>贷款测算表</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>项目</th>
+                        <th>备注</th>
+                        <th>金额 (AUD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>贷款比例</td>
+                        <td>请填写数值</td>
+                        <td><input type="number" id="loanRate" placeholder="请填写金额">%</td>
+                    </tr>
+                    <tr>
+                        <td>贷款金额</td>
+                        <td colspan="2" id="loanAmount"></td>
+                    </tr>
+                    <tr>
+                        <td>贷款年限</td>
+                        <td>请填写金额</td>
+                        <td><input type="number" id="loanTerm" placeholder="请填写金额"></td>
+                    </tr>
+                    <tr>
+                        <td>等额本息</td>
+                        <td>利率</td>
+                        <td><input type="number" id="piRate" placeholder="请填写数值">%</td>
+                    </tr>
+                    <tr>
+                        <td>每周还款</td>
+                        <td>等额本息</td>
+                        <td id="weeklyPIPayment"></td>
+                    </tr>
+                    <tr>
+                        <td>仅还利息</td>
+                        <td>利率</td>
+                        <td><input type="number" id="ioRate" placeholder="请填写数值">%</td>
+                    </tr>
+                    <tr>
+                        <td>每周还款</td>
+                        <td>仅还利息</td>
+                        <td id="weeklyIOPayment"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>投资回报测算表</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>持有成本明细</th>
+                        <th>季支出</th>
+                        <th>年支出</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>水费</td>
+                        <td><input type="number" id="waterFeeQuarter" placeholder="请填写金额"></td>
+                        <td id="waterFeeAnnual"></td>
+                    </tr>
+                    <tr>
+                        <td>物业费</td>
+                        <td><input type="number" id="propertyFeeQuarter" placeholder="请填写金额"></td>
+                        <td id="propertyFeeAnnual"></td>
+                    </tr>
+                    <tr>
+                        <td>市政费</td>
+                        <td><input type="number" id="cityFeeQuarter" placeholder="请填写金额"></td>
+                        <td id="cityFeeAnnual"></td>
+                    </tr>
+                    <tr>
+                        <td>Loan Repayment</td>
+                        <td id="loanRepaymentQuarter"></td>
+                        <td id="loanRepaymentAnnual"></td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td id="totalQuarterlyCost"></td>
+                        <td id="totalAnnualCost"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>租金回报</th>
+                        <th>每周租金收益</th>
+                        <th>每年租金收益</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>金额</td>
+                        <td><input type="number" id="rentIncome" placeholder="请填写金额"></td>
+                        <td id="annualRentIncome"></td>
+                    </tr>
+                    <tr>
+                        <td>投资回报率</td>
+                        <td colspan="2" id="annualReturnRate"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="#" class="button" onclick="calculate()">计算</a>
+        <a href="#" class="button" onclick="printPage()">打印或导出PDF</a>
+
+        <div class="section notes">
+            <p>Note: 自住房STAMP DUTY既合约起15个月内交付(提前SETTLE以SETTLE时间为准交付)</p>
+            <p>投资房STAMP DUTY既合约日起三个月内交付(提前SETTLE以SETTLE时间为准交付)</p>
+            <p>房屋成交时会产生一些杂费.请多预留3000澳币(多退少补)完成交割</p>
+        </div>
+    </div>
+</body>
+</html>
