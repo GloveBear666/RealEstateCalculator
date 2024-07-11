@@ -2,7 +2,6 @@ function updateMiscFees() {
     let miscFeesOption = document.getElementById('miscFeesOption');
     if (miscFeesOption) {
         document.getElementById('miscFeesAmount').textContent = miscFeesOption.value;
-        calculate(); // Recalculate all values
     }
 }
 
@@ -83,7 +82,7 @@ function calculate() {
     let weeklyPIPayment = (loanAmount * (piRate / 100 / 12)) / (1 - Math.pow(1 + (piRate / 100 / 12), -loanTerm * 12)) / 4;
     let weeklyIOPayment = (loanAmount * (ioRate / 100 / 12)) / 4;
     let annualRentIncome = rentIncome * 52;
-    let loanRepaymentQuarter = weeklyPIPayment * 13;
+    let loanRepaymentQuarter = weeklyPIPayment * 4;
     let loanRepaymentAnnual = loanRepaymentQuarter * 4;
     let totalQuarterlyCost = waterFeeQuarter + propertyFeeQuarter + cityFeeQuarter + loanRepaymentQuarter;
     let totalAnnualCost = totalQuarterlyCost * 4;
