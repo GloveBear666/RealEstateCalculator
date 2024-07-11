@@ -1,40 +1,38 @@
 function updateMiscFees() {
     let miscFeesOption = document.getElementById('miscFeesOption');
-    if (miscFeesOption) {
-        document.getElementById('miscFeesAmount').textContent = miscFeesOption.value;
+    let miscFeesAmount = document.getElementById('miscFeesAmount');
+    if (miscFeesOption && miscFeesAmount) {
+        miscFeesAmount.textContent = miscFeesOption.value;
     }
 }
 
 function calculateFIRBFee() {
     let firbFeeRange = document.getElementById('firbFeeRange');
-    if (firbFeeRange) {
-        let firbFeeAmount = 0;
+    let contractPriceElement = document.getElementById('contractPrice');
+    let firbFeeAmount = document.getElementById('firbFeeAmount');
 
-        switch (firbFeeRange.value) {
-            case "less75k":
-                firbFeeAmount = 4300;
-                break;
-            case "1millionOrLess":
-                firbFeeAmount = 14700;
-                break;
-            case "2millionOrLess":
-                firbFeeAmount = 29500;
-                break;
-            case "3millionOrLess":
-                firbFeeAmount = 59000;
-                break;
-            case "4millionOrLess":
-                firbFeeAmount = 88500;
-                break;
-            case "5millionOrLess":
-                firbFeeAmount = 118000;
-                break;
-            default:
-                firbFeeAmount = 0;
+    if (firbFeeRange && contractPriceElement && firbFeeAmount) {
+        let contractPrice = parseFloat(contractPriceElement.value) || 0;
+        let fee = 0;
+
+        if (firbFeeRange.value === 'applicable') {
+            if (contractPrice < 75000) {
+                fee = 4300;
+            } else if (contractPrice <= 1000000) {
+                fee = 14700;
+            } else if (contractPrice <= 2000000) {
+                fee = 29500;
+            } else if (contractPrice <= 3000000) {
+                fee = 59000;
+            } else if (contractPrice <= 4000000) {
+                fee = 88500;
+            } else if (contractPrice <= 5000000) {
+                fee = 118000;
+            }
         }
 
-        document.getElementById('firbFeeAmount').textContent = 'AUD ' + firbFeeAmount.toFixed(2);
-        return firbFeeAmount;
+        firbFeeAmount.textContent = 'AUD ' + fee.toFixed(2);
+        return fee;
     }
     return 0;
 }
@@ -95,7 +93,7 @@ function calculate() {
     if (document.getElementById('remainingAmount')) document.getElementById('remainingAmount').textContent = remainingAmount.toFixed(2);
     if (document.getElementById('stageOneTotal')) document.getElementById('stageOneTotal').textContent = stageOneTotal.toFixed(2);
     if (document.getElementById('stageTwoTotal')) document.getElementById('stageTwoTotal').textContent = stageTwoTotal.toFixed(2);
-    if (document.getElementById('totalCost')) document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+    if (document.getElementById('totalSum')) document.getElementById('totalSum').textContent = totalCost.toFixed(2);
     if (document.getElementById('weeklyPIPayment')) document.getElementById('weeklyPIPayment').textContent = weeklyPIPayment.toFixed(2);
     if (document.getElementById('weeklyIOPayment')) document.getElementById('weeklyIOPayment').textContent = weeklyIOPayment.toFixed(2);
     if (document.getElementById('annualRentIncome')) document.getElementById('annualRentIncome').textContent = annualRentIncome.toFixed(2);
@@ -107,9 +105,15 @@ function calculate() {
     if (document.getElementById('totalQuarterlyCost')) document.getElementById('totalQuarterlyCost').textContent = totalQuarterlyCost.toFixed(2);
     if (document.getElementById('totalAnnualCost')) document.getElementById('totalAnnualCost').textContent = totalAnnualCost.toFixed(2);
     if (document.getElementById('annualReturnRate')) document.getElementById('annualReturnRate').textContent = annualReturnRate.toFixed(2) + '%';
-    if (document.getElementById('totalSum')) document.getElementById('totalSum').textContent = totalCost.toFixed(2);
 }
 
 function printPage() {
     window.print();
+}
+
+function resetForm() {
+    document.querySelectorAll('input').forEach(input => input.value = '');
+    document.querySelectorAll('td[id]').forEach(td => td.textContent = '');
+    document.getElementById('firbFeeRange').selectedIndex = 0;
+    document.getElementById('miscFeesOption').selectedIndex = 0;
 }
