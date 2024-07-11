@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>智慧置业计算器</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img src="LCG_Logo_Landscape-03.png" alt="Leading Capital Logo" class="logo">
+            <img src="path/to/your/logo.png" alt="Leading Capital Logo" class="logo">
         </div>
     </header>
     <div class="container">
-        <h1 style="text-align: center;">智慧置业计算器</h1>
+        <h1 class="main-title">智慧置业计算器</h1>
         
         <div class="section">
             <h2>资金准备测算表</h2>
@@ -43,19 +43,14 @@
                         <td><input type="number" id="lawyerFee" placeholder="请填写金额"></td>
                     </tr>
                     <tr>
-                      <td>FIRB申请费</td>
-                      <td>
-                          <select id="firbFeeRange" onchange="calculateFIRBFee()">
-                              <option value="none">不适用</option>
-                              <option value="less75k"> less than $75,000</option>
-                              <option value="1millionOrLess">$75,000 - $1,000,000</option>
-                              <option value="2millionOrLess">$1,000,000 - $2,000,000</option>
-                              <option value="3millionOrLess">$2,000,001 - $3,000,000</option>
-                              <option value="4millionOrLess">$3,000,001 - $4,000,000</option>
-                              <option value="5millionOrLess">$4,000,001 - $5,000,000</option>
-                          </select>
-                      </td>
-                      <td id="firbFeeAmount"></td>
+                        <td>FIRB申请费</td>
+                        <td>
+                            <select id="firbFeeRange" onchange="calculateFIRBFee()">
+                                <option value="none">不适用</option>
+                                <option value="applicable">适用</option>
+                            </select>
+                        </td>
+                        <td id="firbFeeAmount"></td>
                     </tr>
                     <tr>
                       <td><strong>阶段一需支付费用</strong></td>
@@ -75,12 +70,13 @@
                         <td>杂费预估（landtax，council，water，strate）</td>
                         <td>
                             <select id="miscFeesOption" onchange="updateMiscFees()">
+                                <option value="0">请选择</option>
                                 <option value="3000">1房</option>
                                 <option value="5000">2房</option>
                                 <option value="7000">3房</option>
                             </select>
                         </td>
-                        <td id="miscFeesAmount">5000</td>
+                        <td id="miscFeesAmount"></td>
                     </tr>
                     <tr>
                         <td>阶段二需支付费用</td>
@@ -116,8 +112,8 @@
                     </tr>
                     <tr>
                         <td>贷款年限</td>
-                        <td>请填写金额</td>
-                        <td><input type="number" id="loanTerm" placeholder="请填写金额"></td>
+                        <td>请填写时间</td>
+                        <td><input type="number" id="loanTerm" placeholder="请填写年份"></td>
                     </tr>
                     <tr>
                         <td>等额本息</td>
@@ -205,6 +201,7 @@
 
         <a href="#" class="button" onclick="calculate()">计算</a>
         <a href="#" class="button" onclick="printPage()">打印或导出PDF</a>
+        <a href="#" class="button" onclick="resetForm()">重置</a>
 
         <div class="section notes">
             <p>Note: 自住房STAMP DUTY既合约起15个月内交付(提前SETTLE以SETTLE时间为准交付)</p>
@@ -212,8 +209,5 @@
             <p>房屋成交时会产生一些杂费.请多预留3000澳币(多退少补)完成交割</p>
         </div>
     </div>
-    <footer>
-        <p>&copy; 2024 Leading Capital. All rights reserved.</p>
-    </footer>
 </body>
 </html>
