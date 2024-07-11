@@ -41,7 +41,7 @@ function calculate() {
     // Get input values
     let contractPriceElement = document.getElementById('contractPrice');
     let downPaymentRateElement = document.getElementById('downPaymentRate');
-    let lawyerFeeElement = document.getElementById('lawyerFee');
+    let lawyerFee = 1500;  // Fixed lawyer fee
     let stampDutyElement = document.getElementById('stampDuty');
     let loanRateElement = document.getElementById('loanRate');
     let loanTermElement = document.getElementById('loanTerm');
@@ -55,7 +55,6 @@ function calculate() {
 
     let contractPrice = contractPriceElement ? parseFloat(contractPriceElement.value) || 0 : 0;
     let downPaymentRate = downPaymentRateElement ? parseFloat(downPaymentRateElement.value) || 0 : 0;
-    let lawyerFee = lawyerFeeElement ? parseFloat(lawyerFeeElement.value) || 0 : 0;
     let firbFee = calculateFIRBFee();  // Use calculateFIRBFee to get the FIRB fee
     let stampDuty = stampDutyElement ? parseFloat(stampDutyElement.value) || 0 : 0;
     let loanRate = loanRateElement ? parseFloat(loanRateElement.value) || 0 : 0;
@@ -80,7 +79,7 @@ function calculate() {
     let weeklyPIPayment = (loanAmount * (piRate / 100 / 12)) / (1 - Math.pow(1 + (piRate / 100 / 12), -loanTerm * 12)) / 4;
     let weeklyIOPayment = (loanAmount * (ioRate / 100 / 12)) / 4;
     let annualRentIncome = rentIncome * 52;
-    let loanRepaymentQuarter = weeklyPIPayment * 13;
+    let loanRepaymentQuarter = weeklyPIPayment * 4;
     let loanRepaymentAnnual = loanRepaymentQuarter * 4;
     let totalQuarterlyCost = waterFeeQuarter + propertyFeeQuarter + cityFeeQuarter + loanRepaymentQuarter;
     let totalAnnualCost = totalQuarterlyCost * 4;
