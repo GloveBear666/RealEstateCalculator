@@ -41,7 +41,7 @@ function calculate() {
     // Get input values
     let contractPriceElement = document.getElementById('contractPrice');
     let downPaymentRateElement = document.getElementById('downPaymentRate');
-    let lawyerFee = 1500;  // Fixed lawyer fee
+    let lawyerFeeElement = document.getElementById('lawyerFee');
     let stampDutyElement = document.getElementById('stampDuty');
     let loanRateElement = document.getElementById('loanRate');
     let loanTermElement = document.getElementById('loanTerm');
@@ -55,6 +55,7 @@ function calculate() {
 
     let contractPrice = contractPriceElement ? parseFloat(contractPriceElement.value) || 0 : 0;
     let downPaymentRate = downPaymentRateElement ? parseFloat(downPaymentRateElement.value) || 0 : 0;
+    let lawyerFee = lawyerFeeElement ? parseFloat(lawyerFeeElement.value) || 0 : 0;
     let firbFee = calculateFIRBFee();  // Use calculateFIRBFee to get the FIRB fee
     let stampDuty = stampDutyElement ? parseFloat(stampDutyElement.value) || 0 : 0;
     let loanRate = loanRateElement ? parseFloat(loanRateElement.value) || 0 : 0;
