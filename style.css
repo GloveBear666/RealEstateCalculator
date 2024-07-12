@@ -8,6 +8,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-color: #FFFBDA;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 header {
@@ -29,11 +30,12 @@ header {
 
 .container {
     flex: 1;
-    padding: 40px;
+    padding: 20px;
     background-color: #ffffff;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 .main-title {
@@ -42,8 +44,17 @@ header {
     margin: 20px 0;
 }
 
+.section-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 .section {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    flex: 1;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
 .section h2 {
@@ -85,10 +96,45 @@ header {
     background-color: #004080;
 }
 
-footer {
-    background-color: #001f3f;
-    padding: 10px;
-    text-align: center;
-    color: #ffffff;
-    width: 100%;
+@media print {
+    @page {
+        size: A4 landscape;
+        margin: 10mm;
+    }
+    body {
+        background-color: #fff;
+        width: 100%;
+    }
+    .container {
+        box-shadow: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .button {
+        display: none;
+    }
+    .section-wrapper {
+        flex-direction: row;
+    }
+    .section {
+        page-break-inside: avoid; /* Prevent page break inside sections */
+    }
+    .section table {
+        font-size: 10px; /* Reduce the font size for printing */
+        width: 100%; /* Ensure the table width is 100% */
+    }
+    .section table th,
+    .section table td {
+        padding: 4px; /* Reduce padding for printing */
+    }
+    .section h2 {
+        font-size: 16px; /* Reduce the heading size for printing */
+    }
+    .main-title {
+        font-size: 24px; /* Reduce the main title size for printing */
+    }
+    .section.notes p {
+        font-size: 8px; /* Reduce the notes font size for printing */
+    }
 }
