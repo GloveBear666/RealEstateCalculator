@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>智慧置业计算器</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img src="LCG_Logo_Landscape-03.png" alt="Leading Capital Logo" class="logo">
+            <img src="path/to/your/logo.png" alt="Leading Capital Logo" class="logo">
         </div>
     </header>
     <div class="container">
@@ -34,9 +34,9 @@
                             <td><input type="number" id="contractPrice" placeholder="请填写金额"></td>
                         </tr>
                         <tr>
-                            <td>首付比例</td>
-                            <td><input type="number" id="downPaymentRate" placeholder="请填写数值">%</td>
-                            <td id="downPayment"></td>
+                              <td>首付比例</td>
+                              <td><input type="number" id="downPaymentRate" value="10" readonly>%</td>
+                              <td id="downPayment"></td>
                         </tr>
                         <tr>
                             <td>律师费</td>
@@ -113,8 +113,8 @@
                         </tr>
                         <tr>
                             <td>贷款年限</td>
-                            <td>请填写数值</td>
-                            <td><input type="number" id="loanTerm" placeholder="请填写年份"></td>
+                            <td>请填写时间</td>
+                            <td><input type="number" id="loanTerm" value="30" readonly></td>
                         </tr>
                         <tr>
                             <td>等额本息</td>
@@ -153,7 +153,7 @@
                     <tbody>
                         <tr>
                             <td>水费</td>
-                            <td><input type="number" id="waterFeeQuarter" placeholder="请填写金额"></td>
+                            <td><input type="number" id="waterFeeQuarter" value="220" readonly></td>
                             <td id="waterFeeAnnual"></td>
                         </tr>
                         <tr>
@@ -163,7 +163,7 @@
                         </tr>
                         <tr>
                             <td>市政费</td>
-                            <td><input type="number" id="cityFeeQuarter" placeholder="请填写金额"></td>
+                            <td><input type="number" id="cityFeeQuarter" value="350" readonly></td>
                             <td id="cityFeeAnnual"></td>
                         </tr>
                         <tr>
