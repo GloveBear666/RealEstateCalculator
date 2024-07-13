@@ -40,7 +40,6 @@ function calculateFIRBFee() {
 function calculate() {
     // Get input values
     let contractPriceElement = document.getElementById('contractPrice');
-    let downPaymentRateElement = document.getElementById('downPaymentRate');
     let lawyerFeeElement = document.getElementById('lawyerFee');
     let stampDutyElement = document.getElementById('stampDuty');
     let loanRateElement = document.getElementById('loanRate');
@@ -54,12 +53,12 @@ function calculate() {
     let cityFeeQuarterElement = document.getElementById('cityFeeQuarter');
 
     let contractPrice = contractPriceElement ? parseFloat(contractPriceElement.value) || 0 : 0;
-    let downPaymentRate = downPaymentRateElement ? parseFloat(downPaymentRateElement.value) || 0 : 0;
+    let downPaymentRate = 10; // 固定为10%
     let lawyerFee = lawyerFeeElement ? parseFloat(lawyerFeeElement.value) || 0 : 0;
     let firbFee = calculateFIRBFee();  // Use calculateFIRBFee to get the FIRB fee
     let stampDuty = stampDutyElement ? parseFloat(stampDutyElement.value) || 0 : 0;
     let loanRate = loanRateElement ? parseFloat(loanRateElement.value) || 0 : 0;
-    let loanTerm = loanTermElement ? parseFloat(loanTermElement.value) || 0 : 0;
+    let loanTerm = 30; // 固定为30年
     let piRate = piRateElement ? parseFloat(piRateElement.value) || 0 : 0;
     let ioRate = ioRateElement ? parseFloat(ioRateElement.value) || 0 : 0;
     let rentIncome = rentIncomeElement ? parseFloat(rentIncomeElement.value) || 0 : 0;
@@ -112,8 +111,26 @@ function printPage() {
 }
 
 function resetForm() {
-    document.querySelectorAll('input').forEach(input => input.value = '');
+    // 清空所有输入框的值
+    document.querySelectorAll('input').forEach(input => {
+        if (!input.hasAttribute('readonly')) {
+            input.value = '';
+        }
+    });
+
+    // 清空所有表格单元格中的文本内容
     document.querySelectorAll('td[id]').forEach(td => td.textContent = '');
+
+    // 重置下拉选项
     document.getElementById('firbFeeRange').selectedIndex = 0;
     document.getElementById('miscFeesOption').selectedIndex = 0;
+
+    // 重置只读输入框的值
+    document.getElementById('lawyerFee').value = '1500';
+    document.getElementById('downPaymentRate').value = '10';
+
+    // 调用 updateMiscFees 和 calculateFIRBFee 来更新相关费用
+    updateMiscFees();
+    calculateFIRBFee();
 }
+
